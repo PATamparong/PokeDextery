@@ -3,7 +3,7 @@ import { useGetAllPokemonsQuery } from "../../services/pokeApi";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSearch } from "../../provider";
-import { Pencil, Heart, Mic } from "lucide-react";
+import { Pencil, Heart } from "lucide-react";
 import { PokemonCry } from "../../components";
 
 export default function Pokemon() {
@@ -71,59 +71,61 @@ export default function Pokemon() {
     <div>
       <div className="p-6">
         <div className="grid grid-cols-3 gap-4">
-          {paginatedPokemons.map((pokemon: { id; name; image }, index) => (
-            <motion.div
-              key={pokemon.id}
-              className="relative perspective"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-              }}
-            >
-              <Link
-                to={`/customizer/${pokemon?.name}`}
-                className="absolute top-2 right-2 outline-2 outline-offset-2 outline-blue-500 text-blue-500 hover:text-blue-400"
+          {paginatedPokemons.map(
+            (pokemon: { id: number; name: string; image: string }, index) => (
+              <motion.div
+                key={pokemon.id}
+                className="relative perspective"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
+                }}
               >
-                <Pencil size={20} />
-              </Link>
-              <button
-                onClick={() => toggleFavorite(pokemon?.name)}
-                className="absolute top-2 left-2 text-gray-700 hover:text-red-500"
-              >
-                <Heart
-                  size={20}
-                  fill={favorites.includes(pokemon.name) ? "red" : "none"}
+                <Link
+                  to={`/customizer/${pokemon?.name}`}
+                  className="absolute top-2 right-2 outline-2 outline-offset-2 outline-blue-500 text-blue-500 hover:text-blue-400"
+                >
+                  <Pencil size={20} />
+                </Link>
+                <button
+                  onClick={() => toggleFavorite(pokemon?.name)}
+                  className="absolute top-2 left-2 text-gray-700 hover:text-red-500"
+                >
+                  <Heart
+                    size={20}
+                    fill={favorites.includes(pokemon.name) ? "red" : "none"}
+                  />
+                </button>
+                <PokemonCry
+                  className="absolute bottom-1 right-1"
+                  pokemonId={pokemon.id}
                 />
-              </button>
-              <PokemonCry
-                className="absolute bottom-1 right-1"
-                pokemonId={pokemon.id}
-              />
 
-              <Link
-                to={`/pokemon/${pokemon.name}`}
-                className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center"
-              >
-                <motion.img
-                  src={pokemon.image}
-                  alt={pokemon.name}
-                  className="w-32 h-32"
-                  whileHover={{
-                    rotateX: 15,
-                    rotateY: 15,
-                    scale: 1.1,
-                  }}
-                  transition={{ type: "spring", stiffness: 100 }}
-                />
-                <h2 className="text-xl font-semibold capitalize mt-2 text-gray-500">
-                  {pokemon.name}
-                </h2>
-              </Link>
-            </motion.div>
-          ))}
+                <Link
+                  to={`/pokemon/${pokemon.name}`}
+                  className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center"
+                >
+                  <motion.img
+                    src={pokemon.image}
+                    alt={pokemon.name}
+                    className="w-32 h-32"
+                    whileHover={{
+                      rotateX: 15,
+                      rotateY: 15,
+                      scale: 1.1,
+                    }}
+                    transition={{ type: "spring", stiffness: 100 }}
+                  />
+                  <h2 className="text-xl font-semibold capitalize mt-2 text-gray-500">
+                    {pokemon.name}
+                  </h2>
+                </Link>
+              </motion.div>
+            )
+          )}
         </div>
 
         {filteredPokemons.length > limit && (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   useGetPokemonByNameQuery,
@@ -12,7 +13,8 @@ export default function Compare() {
     limit: 1000,
     offset: 0,
   });
-  const pokemonList = allPokemonData?.map((pokemon) => pokemon?.name) || [];
+  const pokemonList =
+    allPokemonData?.map((pokemon: any) => pokemon?.name) || [];
 
   const { data: data1 } = useGetPokemonByNameQuery(pokemon1, {
     skip: !pokemon1,
@@ -41,7 +43,7 @@ export default function Compare() {
           className="p-2 text-black border rounded"
         >
           <option value="">Select Pokémon 1</option>
-          {pokemonList.map((name) => (
+          {pokemonList.map((name: string) => (
             <option key={name} value={name}>
               {name.toUpperCase()}
             </option>
@@ -54,7 +56,7 @@ export default function Compare() {
           className="p-2 text-black border rounded"
         >
           <option value="">Select Pokémon 2</option>
-          {pokemonList.map((name) => (
+          {pokemonList.map((name: string) => (
             <option key={name} value={name}>
               {name.toUpperCase()}
             </option>
@@ -74,7 +76,7 @@ export default function Compare() {
               <h2 className="text-xl capitalize mt-2">{pokemon1}</h2>
             </>
           ) : (
-            <div className="h-32 w-32 mx-auto bg-gray-200"></div> // Placeholder image
+            <div className="h-32 w-32 mx-auto bg-gray-200"></div>
           )}
         </div>
 
@@ -88,11 +90,11 @@ export default function Compare() {
           <tbody>
             {stats.map((stat) => {
               const stat1 =
-                data1?.stats?.find((s) => s.stat.name === stat)?.base_stat ??
-                "-";
+                data1?.stats?.find((s: any) => s.stat.name === stat)
+                  ?.base_stat ?? "-";
               const stat2 =
-                data2?.stats?.find((s) => s.stat.name === stat)?.base_stat ??
-                "-";
+                data2?.stats?.find((s: any) => s.stat.name === stat)
+                  ?.base_stat ?? "-";
               return (
                 <tr key={stat}>
                   <td className="border px-4 py-2 capitalize">{stat}</td>

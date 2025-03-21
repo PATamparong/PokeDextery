@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useGetPokemonByNameQuery } from "../../services/pokeApi";
 import html2canvas from "html2canvas";
 

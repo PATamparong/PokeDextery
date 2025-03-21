@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -86,8 +87,13 @@ function FavoriteCard({
 
   useEffect(() => {
     if (pokemon) {
-      const types = pokemon?.types?.map((t: any) => t.type.name) || [];
-      setPokemonTypes((prevTypes) => [...new Set([...prevTypes, ...types])]);
+      const types =
+        pokemon.types.map((t: { type: { name: string } }) => t.type.name) || [];
+
+      setPokemonTypes((prevTypes: string[]) => {
+        const uniqueTypes = new Set([...prevTypes, ...types]);
+        return Array.from(uniqueTypes);
+      });
     }
   }, [pokemon, setPokemonTypes]);
 
@@ -141,7 +147,7 @@ function FavoriteCard({
         <h2 className="text-xl font-semibold capitalize">{pokemonName}</h2>
         <p className="text-sm text-gray-500">
           {types
-            ?.map((type) => type.charAt(0).toUpperCase() + type.slice(1))
+            ?.map((type: any) => type.charAt(0).toUpperCase() + type.slice(1))
             .join(", ")}
         </p>
       </Link>

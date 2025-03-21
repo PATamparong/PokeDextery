@@ -9,7 +9,7 @@ const Header = ({ className }: { className?: string }) => {
   // const { darkMode, toggleTheme } = useTheme();
   const { searchQuery, setSearchQuery } = useSearch();
   const [showSearch, setShowSearch] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -1,30 +1,37 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-interface PokemonsResponse {
-  data: {
-    pokemons: {
-      results: {
-        id: number;
-        name: string;
-        image: string;
-      }[];
-    };
-  };
-}
+// interface PokemonsResponse {
+//   data: {
+//     pokemons: {
+//       results: {
+//         id: number;
+//         name: string;
+//         image: string;
+//       }[];
+//     };
+//   };
+// }
 
-interface PokemonDetailResponse {
-  data: {
-    pokemon: {
-      id: number;
-      name: string;
-      height: number;
-      weight: number;
-      sprites: {
-        front_default: string;
-      };
-    };
-  };
-}
+// interface PokemonDetailResponse {
+//   data: {
+//     pokemon: {
+//       id: number;
+//       name: string;
+//       height: number;
+//       weight: number;
+//       sprites: {
+//         front_default: string;
+//       };
+//       stats: {
+//         base_stat: number;
+//         stat: {
+//           name: string;
+//         };
+//       };
+//     };
+//   };
+// }
 
 export const pokeApi = createApi({
   reducerPath: "pokeApi",
@@ -64,8 +71,7 @@ export const pokeApi = createApi({
           variables: { name },
         },
       }),
-      transformResponse: (response: PokemonDetailResponse) =>
-        response.data.pokemon,
+      transformResponse: (response: any) => response.data.pokemon,
     }),
     getAllPokemons: builder.query({
       query: ({ limit, offset }) => ({
@@ -86,8 +92,7 @@ export const pokeApi = createApi({
           variables: { limit, offset },
         },
       }),
-      transformResponse: (response: PokemonsResponse) =>
-        response.data.pokemons.results,
+      transformResponse: (response: any) => response.data.pokemons.results,
     }),
   }),
 });

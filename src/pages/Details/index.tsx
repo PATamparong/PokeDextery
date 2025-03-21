@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetPokemonByNameQuery } from "../../services/pokeApi";
 import PokemonCry from "../../components/PokemonCry";
@@ -42,7 +43,7 @@ export default function Details() {
         <div className="mt-4">
           <h2 className="text-2xl font-semibold">Type</h2>
           <div className="flex gap-2 mt-2">
-            {pokemon?.types?.map((t) => (
+            {pokemon?.types?.map((t: any) => (
               <span
                 key={t.type.name}
                 className={`px-3 py-1 rounded-full text-sm text-white font-semibold ${
@@ -58,7 +59,7 @@ export default function Details() {
         <div className="mt-6">
           <h2 className="text-2xl font-semibold">Base Stats</h2>
           <div className="mt-2">
-            {pokemon?.stats?.map((s) => (
+            {pokemon?.stats?.map((s: any) => (
               <div key={s.stat.name} className="mt-2">
                 <p className="text-sm font-semibold capitalize">
                   {s.stat.name}: {s.base_stat}
@@ -78,7 +79,7 @@ export default function Details() {
   );
 }
 
-const typeColors = {
+const typeColors: any = {
   fire: "bg-red-500",
   water: "bg-blue-500",
   grass: "bg-green-500",
