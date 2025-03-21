@@ -77,7 +77,7 @@ function FavoriteCard({
   pokemonName: string;
   removeFromFavorites: (name: string) => void;
   selectedType: string;
-  setPokemonTypes: (types: string[]) => void;
+  setPokemonTypes: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
   const {
     data: pokemon,
@@ -90,9 +90,9 @@ function FavoriteCard({
       const types =
         pokemon.types.map((t: { type: { name: string } }) => t.type.name) || [];
 
-      setPokemonTypes((prevTypes: string[]) => {
-        const uniqueTypes = new Set([...prevTypes, ...types]);
-        return Array.from(uniqueTypes);
+      setPokemonTypes((prevTypes) => {
+        const uniqueTypes = Array.from(new Set([...prevTypes, ...types]));
+        return uniqueTypes as string[];
       });
     }
   }, [pokemon, setPokemonTypes]);
